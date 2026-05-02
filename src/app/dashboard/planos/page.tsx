@@ -6,7 +6,12 @@ export default async function PlansPage() {
   const user = await getCurrentUser()
   if (!user) return null
 
-  const subscription = await getSubscription()
+  let subscription = null
+  try {
+    subscription = await getSubscription()
+  } catch (err) {
+    console.error('[PlansPage] getSubscription falhou:', err)
+  }
 
   return (
     <PlansPageClient
