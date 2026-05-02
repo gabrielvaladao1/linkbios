@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { signIn } from '@/actions/auth'
 import { Logo } from '@/components/ui/logo'
+import PasswordInput from '@/components/ui/password-input'
 
 export default function LoginPage() {
   const [error, setError] = useState('')
@@ -43,24 +44,15 @@ export default function LoginPage() {
             />
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
-                Senha
-              </label>
+          <PasswordInput
+            id="password"
+            label="Senha"
+            labelRight={
               <Link href="/reset-password" className="text-xs text-brand-400 hover:text-brand-300 transition-colors">
                 Esqueceu?
               </Link>
-            </div>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-border text-white placeholder:text-zinc-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-            />
-          </div>
+            }
+          />
 
           {error && (
             <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">

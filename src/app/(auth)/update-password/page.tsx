@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Logo } from '@/components/ui/logo'
+import PasswordInput from '@/components/ui/password-input'
 
 export default function UpdatePasswordPage() {
   const [password, setPassword] = useState('')
@@ -59,37 +60,22 @@ export default function UpdatePasswordPage() {
 
       <div className="p-8 rounded-2xl border border-surface-border bg-surface-card">
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-300 mb-1.5">
-              Nova senha
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-border text-white placeholder:text-zinc-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-            />
-          </div>
+          <PasswordInput
+            id="password"
+            label="Nova senha"
+            minLength={6}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-300 mb-1.5">
-              Confirmar nova senha
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              required
-              minLength={6}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-border text-white placeholder:text-zinc-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-            />
-          </div>
+          <PasswordInput
+            id="confirmPassword"
+            label="Confirmar nova senha"
+            placeholder="Digite a senha novamente"
+            minLength={6}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
 
           {error && (
             <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{error}</div>

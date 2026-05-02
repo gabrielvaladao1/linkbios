@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react'
 import { signUp, checkSlugAvailability } from '@/actions/auth'
 import { slugify } from '@/lib/utils'
 import { Logo } from '@/components/ui/logo'
+import PasswordInput from '@/components/ui/password-input'
 
 export default function SignupPage() {
   const [error, setError] = useState('')
@@ -30,6 +31,16 @@ export default function SignupPage() {
   async function handleSubmit(formData: FormData) {
     setLoading(true)
     setError('')
+
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
+
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem.')
+      setLoading(false)
+      return
+    }
+
     formData.set('slug', slug)
     const result = await signUp(formData)
     if (result?.error) {
@@ -102,24 +113,23 @@ export default function SignupPage() {
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-300 mb-1.5">
-              Senha
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength={8}
-              placeholder="Mínimo 8 caracteres"
-              autoComplete="new-password"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-border text-white placeholder:text-zinc-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
-            />
-            <p className="mt-1.5 text-xs text-zinc-500">
-              Pelo menos 8 caracteres, com letras e números.
-            </p>
-          </div>
+          <PasswordInput
+            id="password"
+            label="Senha"
+            placeholder="Mínimo 8 caracteres"
+            minLength={8}
+          />
+          <p className="-mt-3 text-xs text-zinc-500">
+            Pelo menos 8 caracteres, com letras e números.
+          </p>
+
+          <PasswordInput
+            id="confirmPassword"
+            name="confirmPassword"
+            label="Confirmar senha"
+            placeholder="Digite a senha novamente"
+            minLength={8}
+          />
 
           <div>
             <label htmlFor="slug" className="block text-sm font-medium text-zinc-300 mb-1.5">
