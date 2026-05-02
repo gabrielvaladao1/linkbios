@@ -5,18 +5,19 @@ import { redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
-const PLAN_BENEFITS: Record<'PRO' | 'BUSINESS', { intro: string; benefits: { icon: string; title: string; desc: string }[] }> = {
+type Benefit = { icon: string; title: string; desc: string; comingSoon?: boolean }
+
+const PLAN_BENEFITS: Record<'PRO' | 'BUSINESS', { intro: string; benefits: Benefit[] }> = {
   PRO: {
     intro: 'Você desbloqueou tudo que o Pro tem a oferecer. É hora de turbinar sua presença online.',
     benefits: [
       { icon: '🎨', title: 'Todos os 14+ templates', desc: 'Acesse o catálogo completo, incluindo Hero e templates premium.' },
       { icon: '📊', title: 'Analytics completo', desc: 'Histórico ilimitado, dispositivos, países, navegadores e referrers.' },
-      { icon: '🌐', title: 'Domínio próprio', desc: 'Conecte seudominio.com.br à sua página.' },
       { icon: '✨', title: 'Sem marca PáginaBio', desc: 'Sua página, sua marca. Branding 100% seu.' },
       { icon: '💚', title: 'Botão WhatsApp', desc: 'CTA direto pro WhatsApp em destaque na sua página.' },
       { icon: '📧', title: 'Captura de emails', desc: 'Cresça sua lista coletando leads direto da página.' },
       { icon: '🎯', title: 'Pixel Meta/TikTok', desc: 'Faça remarketing e otimize anúncios com tracking nativo.' },
-      { icon: '📄', title: '2 páginas', desc: 'Crie uma segunda página pra projetos paralelos.' },
+      { icon: '🌐', title: 'Domínio próprio', desc: 'Conecte seudominio.com.br à sua página. Avisamos por email assim que liberar.', comingSoon: true },
     ],
   },
   BUSINESS: {
@@ -27,7 +28,7 @@ const PLAN_BENEFITS: Record<'PRO' | 'BUSINESS', { intro: string; benefits: { ico
       { icon: '🔍', title: 'SEO avançado', desc: 'Schema.org, sitemap, meta tags otimizadas e canonical.' },
       { icon: '📈', title: 'Relatório PDF', desc: 'Exporte um relatório mensal completo da sua performance.' },
       { icon: '⚡', title: 'Suporte prioritário', desc: 'Resposta em até 24h em dias úteis.' },
-      { icon: '✨', title: 'Tudo do Pro incluso', desc: 'Templates, analytics, captura, pixel, domínio próprio e mais.' },
+      { icon: '✨', title: 'Tudo do Pro incluso', desc: 'Templates, analytics, captura de leads, pixel e branding 100% seu.' },
     ],
   },
 }
@@ -112,11 +113,22 @@ export default async function UpgradeSuccessPage({
           {content.benefits.map((b, i) => (
             <div
               key={i}
-              className="flex gap-3 p-4 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/40 transition-all"
+              className={`flex gap-3 p-4 rounded-2xl border transition-all ${
+                b.comingSoon
+                  ? 'border-yellow-500/20 bg-yellow-500/[0.03]'
+                  : 'border-surface-border bg-surface-card hover:border-brand-600/40'
+              }`}
             >
               <div className="text-2xl shrink-0 leading-none mt-0.5">{b.icon}</div>
-              <div className="min-w-0">
-                <h3 className="font-semibold text-sm text-zinc-100">{b.title}</h3>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-semibold text-sm text-zinc-100">{b.title}</h3>
+                  {b.comingSoon && (
+                    <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-md bg-yellow-500/15 text-yellow-300 border border-yellow-500/30">
+                      Em breve
+                    </span>
+                  )}
+                </div>
                 <p className="text-xs text-zinc-400 mt-1 leading-relaxed">{b.desc}</p>
               </div>
             </div>
@@ -149,9 +161,9 @@ export default async function UpgradeSuccessPage({
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium text-sm group-hover:text-brand-400 transition-colors">
-                  Configurar pixel e domínio
+                  Configurar pixel de tracking
                 </p>
-                <p className="text-xs text-zinc-500 mt-0.5">Tracking e branding 100% seu.</p>
+                <p className="text-xs text-zinc-500 mt-0.5">Meta e TikTok pra remarketing.</p>
               </div>
               <span className="text-xl">⚙️</span>
             </div>

@@ -69,6 +69,8 @@ export const PLANS = {
       'Pixel Meta/TikTok',
       '2 páginas',
     ],
+    // Features anunciadas mas ainda em construção — renderizadas com badge "em breve".
+    comingSoon: ['Domínio custom'] as readonly string[],
     limits: {
       maxLinks: Infinity,
       analyticsRetentionDays: 365,

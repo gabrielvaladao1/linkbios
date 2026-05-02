@@ -219,14 +219,14 @@ export default function LandingPage() {
               { feature: 'Analytics', smart: '✓', link: '✓' },
               { feature: 'Templates', smart: '14+', link: '∞' },
               { feature: 'Pixel Meta/TikTok', smart: '✓', link: '✓' },
-              { feature: 'Domínio custom', smart: '✓', link: '✓' },
+              { feature: 'Domínio custom', smart: 'Em breve', link: '✓' },
               { feature: 'Remover marca', smart: '✓', link: '✓' },
               { feature: 'Captura de emails', smart: '✓', link: '✓' },
               { feature: 'Pagar com PIX/Boleto', smart: '✓', link: '✕' },
             ].map((row, i) => (
               <div key={i} className={`grid grid-cols-3 text-center text-sm ${i % 2 === 0 ? '' : 'bg-surface/50'}`}>
                 <div className="p-3.5 text-zinc-400 text-left pl-6">{row.feature}</div>
-                <div className={`p-3.5 font-medium bg-brand-600/5 ${row.smart === '✓' ? 'text-green-400' : row.smart === '✕' ? 'text-red-400' : 'text-white'}`}>{row.smart}</div>
+                <div className={`p-3.5 font-medium bg-brand-600/5 ${row.smart === '✓' ? 'text-green-400' : row.smart === '✕' ? 'text-red-400' : row.smart === 'Em breve' ? 'text-yellow-300' : 'text-white'}`}>{row.smart}</div>
                 <div className={`p-3.5 ${row.link === '✓' ? 'text-green-400' : row.link === '✕' ? 'text-red-400' : 'text-zinc-300'}`}>{row.link}</div>
               </div>
             ))}
@@ -279,9 +279,24 @@ export default function LandingPage() {
                 <span className="text-zinc-500 mb-1">/mês</span>
               </div>
               <ul className="space-y-3 mb-8">
-                {['Links ilimitados', 'Todos os 14+ templates', 'Analytics completo', 'Sem marca PáginaBio', 'Domínio custom', 'Botão WhatsApp', 'Captura de emails', 'Pixel Meta/TikTok', 'PIX e Boleto'].map((f, i) => (
+                {[
+                  { name: 'Links ilimitados' },
+                  { name: 'Todos os 14+ templates' },
+                  { name: 'Analytics completo' },
+                  { name: 'Sem marca PáginaBio' },
+                  { name: 'Domínio custom', comingSoon: true },
+                  { name: 'Botão WhatsApp' },
+                  { name: 'Captura de emails' },
+                  { name: 'Pixel Meta/TikTok' },
+                ].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">✓</span> {f}
+                    <span className={f.comingSoon ? 'text-zinc-500' : 'text-brand-400'}>✓</span>
+                    <span className={f.comingSoon ? 'text-zinc-400' : ''}>{f.name}</span>
+                    {f.comingSoon && (
+                      <span className="ml-auto text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-md bg-yellow-500/15 text-yellow-300 border border-yellow-500/30">
+                        Em breve
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>

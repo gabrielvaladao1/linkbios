@@ -128,11 +128,20 @@ export default function PlansPageClient({
               </div>
 
               <ul className="space-y-2 mt-4 mb-6">
-                {plan.features.map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">✓</span> {f}
-                  </li>
-                ))}
+                {plan.features.map((f, i) => {
+                  const comingSoon = 'comingSoon' in plan && (plan.comingSoon as readonly string[]).includes(f)
+                  return (
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
+                      <span className={comingSoon ? 'text-zinc-500' : 'text-brand-400'}>✓</span>
+                      <span className={comingSoon ? 'text-zinc-400' : ''}>{f}</span>
+                      {comingSoon && (
+                        <span className="ml-auto text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-md bg-yellow-500/15 text-yellow-300 border border-yellow-500/30">
+                          Em breve
+                        </span>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
 
               {isCurrent ? (
