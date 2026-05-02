@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirme seu email — PáginaBio</title>
+</head>
+<body style="margin:0;padding:0;background-color:#09090b;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+  <!-- Wrapper -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#09090b;padding:40px 16px;">
+    <tr>
+      <td align="center">
+        <!-- Container -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto;">
+
+          <!-- Logo -->
+          <tr>
+            <td align="center" style="padding-bottom:32px;">
+              <span style="font-size:28px;font-weight:800;background:linear-gradient(135deg,#748ffc,#4c6ef5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;">PáginaBio</span>
+            </td>
+          </tr>
+
+          <!-- Card -->
+          <tr>
+            <td>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#18181b;border:1px solid #27272a;border-radius:16px;overflow:hidden;">
+
+                <!-- Gradient accent bar -->
+                <tr>
+                  <td style="height:4px;background:linear-gradient(90deg,#748ffc,#4c6ef5,#845ef7);"></td>
+                </tr>
+
+                <!-- Content -->
+                <tr>
+                  <td style="padding:40px 36px;">
+                    <!-- Emoji + Title -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="font-size:36px;padding-bottom:8px;">🎉</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size:22px;font-weight:700;color:#fafafa;padding-bottom:8px;">
+                          Confirme seu email
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-size:15px;color:#a1a1aa;line-height:1.6;padding-bottom:28px;">
+                          Obrigado por criar sua conta no PáginaBio! Clique no botão abaixo para confirmar seu email e ativar sua página.
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- CTA Button -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center" style="padding-bottom:28px;">
+                          <a href="{{ .ConfirmationURL }}"
+                             target="_blank"
+                             style="display:inline-block;padding:14px 40px;background:linear-gradient(135deg,#4c6ef5,#4263eb);color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;border-radius:12px;box-shadow:0 4px 24px rgba(76,110,245,0.35);">
+                            ✓ Confirmar meu email
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Fallback link -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#111113;border-radius:10px;border:1px solid #27272a;">
+                      <tr>
+                        <td style="padding:16px 20px;">
+                          <p style="margin:0 0 6px;font-size:12px;color:#71717a;">Se o botão não funcionar, copie e cole este link no navegador:</p>
+                          <p style="margin:0;font-size:12px;color:#4c6ef5;word-break:break-all;">{{ .ConfirmationURL }}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:28px 0 0;text-align:center;">
+              <p style="margin:0 0 4px;font-size:12px;color:#52525b;">
+                Você recebeu este email porque criou uma conta no
+                <a href="https://paginabio.com.br" style="color:#748ffc;text-decoration:none;">PáginaBio</a>.
+              </p>
+              <p style="margin:0;font-size:11px;color:#3f3f46;">
+                Se não foi você, ignore este email — nenhuma conta será criada.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

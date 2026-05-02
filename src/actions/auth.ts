@@ -174,23 +174,34 @@ export async function resetPassword(formData: FormData) {
     return { error: parsed.error.issues[0].message }
   }
 
-  const eKey = emailKey(parsed.data.email)
+  const email = parsed.data.email.toLowerCase().trim()
+
+  const eKey = emailKey(email)
   const limit = rateLimit(`reset-email:${eKey}`, 3, 60 * 60_000)
   if (!limit.ok) {
-    // Mesma mensagem opaca: não revelar status de rate limit por email.
-    return { success: 'Se a conta existir, enviamos um email de recuperação.' }
+    return { error: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.' }
+  }
+
+  // Check if email exists in database
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true },
+  })
+
+  if (!existingUser) {
+    return { error: 'Nenhuma conta encontrada com este email.' }
   }
 
   const supabase = await createClient()
-  const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/dashboard/configuracoes`,
   })
 
   if (error) {
-    return { success: 'Se a conta existir, enviamos um email de recuperação.' }
+    return { error: 'Erro ao enviar email de recuperação. Tente novamente.' }
   }
 
-  return { success: 'Se a conta existir, enviamos um email de recuperação.' }
+  return { success: 'Email de recuperação enviado! Verifique sua caixa de entrada.' }
 }
 
 export async function checkSlugAvailability(slug: string) {
