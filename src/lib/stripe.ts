@@ -1,11 +1,27 @@
 import Stripe from 'stripe'
 
-// Usa string vazia se STRIPE_SECRET_KEY não estiver definida — assim o import
-// nunca crasha. Tentativas de chamada à API falharão com erro de auth, que é
-// capturado pelos try/catch nas server actions.
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-  apiVersion: '2026-04-22.dahlia',
-  typescript: true,
+// Lazy init via Proxy: só constrói o cliente Stripe quando alguém de fato
+// usa uma propriedade (ex.: stripe.checkout). Assim o import deste módulo
+// nunca crasha mesmo que STRIPE_SECRET_KEY não esteja definida — falha só
+// no momento do uso, capturável pelos try/catch nas server actions.
+let _stripe: Stripe | null = null
+function getClient(): Stripe {
+  if (_stripe) return _stripe
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) {
+    throw new Error('STRIPE_SECRET_KEY não está configurada no servidor')
+  }
+  _stripe = new Stripe(key, {
+    apiVersion: '2026-04-22.dahlia',
+    typescript: true,
+  })
+  return _stripe
+}
+
+export const stripe = new Proxy({} as Stripe, {
+  get(_target, prop, receiver) {
+    return Reflect.get(getClient(), prop, receiver)
+  },
 })
 
 export type BillingInterval = 'monthly' | 'yearly'
