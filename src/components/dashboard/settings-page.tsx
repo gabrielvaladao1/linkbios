@@ -53,7 +53,7 @@ export default function SettingsPageClient({ user }: { user: User }) {
     <>
       <div className="space-y-8">
         <div>
-          <h1 className="text-2xl font-bold">ConfiguraÃ§Ãµes</h1>
+          <h1 className="text-2xl font-bold">Configurações</h1>
           <p className="text-zinc-400 text-sm mt-1">Gerencie sua conta</p>
         </div>
 
@@ -94,7 +94,7 @@ export default function SettingsPageClient({ user }: { user: User }) {
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="text-sm text-zinc-400">Plano</span>
-              <span className="text-sm font-medium text-brand-400">{user.plan === 'FREE' ? 'GrÃ¡tis' : user.plan}</span>
+              <span className="text-sm font-medium text-brand-400">{user.plan === 'FREE' ? 'Grátis' : user.plan}</span>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function SettingsPageClient({ user }: { user: User }) {
         <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
           <h3 className="font-semibold mb-2">Seus dados</h3>
           <p className="text-sm text-zinc-400 mb-4">
-            Direito Ã  portabilidade (LGPD Art. 18). Baixe um JSON com tudo que armazenamos sobre vocÃª.
+            Direito à portabilidade (LGPD Art. 18). Baixe um JSON com tudo que armazenamos sobre você.
           </p>
           <button
             onClick={handleExport}
@@ -117,7 +117,7 @@ export default function SettingsPageClient({ user }: { user: User }) {
         {/* Sign Out */}
         <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
           <h3 className="font-semibold mb-2">Sair</h3>
-          <p className="text-sm text-zinc-400 mb-4">Encerra a sessÃ£o neste dispositivo.</p>
+          <p className="text-sm text-zinc-400 mb-4">Encerra a sessão neste dispositivo.</p>
           <form action={signOut}>
             <button
               type="submit"
@@ -132,7 +132,7 @@ export default function SettingsPageClient({ user }: { user: User }) {
         <div className="p-6 rounded-2xl border border-red-500/20 bg-red-500/5">
           <h3 className="font-semibold text-red-400 mb-2">Excluir conta</h3>
           <p className="text-sm text-zinc-400 mb-4">
-            Apaga sua pÃ¡gina, seus links e todo o histÃ³rico de analytics. <strong className="text-zinc-300">Esta aÃ§Ã£o Ã© irreversÃ­vel.</strong> Se vocÃª tem assinatura ativa, ela Ã© cancelada imediatamente.
+            Apaga sua página, seus links e todo o histórico de analytics. <strong className="text-zinc-300">Esta ação é irreversível.</strong> Se você tem assinatura ativa, ela é cancelada imediatamente.
           </p>
           <button
             onClick={() => setShowDeleteModal(true)}
@@ -176,7 +176,7 @@ function DeleteAccountModal({ onClose }: { onClose: () => void }) {
       >
         <h3 className="text-lg font-semibold text-red-400 mb-2">Excluir minha conta</h3>
         <p className="text-sm text-zinc-400 mb-5">
-          Para confirmar, digite sua senha e a palavra <code className="text-zinc-200 bg-surface px-1.5 py-0.5 rounded text-xs">EXCLUIR</code>. Esta aÃ§Ã£o Ã© permanente.
+          Para confirmar, digite sua senha e a palavra <code className="text-zinc-200 bg-surface px-1.5 py-0.5 rounded text-xs">EXCLUIR</code>. Esta ação é permanente.
         </p>
 
         <form action={handleSubmit} className="space-y-4">

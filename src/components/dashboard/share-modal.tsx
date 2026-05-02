@@ -93,7 +93,7 @@ export default function ShareModal({ slug, isOpen, onClose }: ShareModalProps) {
                 : 'bg-brand-600 hover:bg-brand-700 text-white'
             }`}
           >
-            {copied ? 'âœ“ Copiado!' : 'Copiar'}
+            {copied ? '✓ Copiado!' : 'Copiar'}
           </button>
         </div>
 
@@ -114,7 +114,7 @@ export default function ShareModal({ slug, isOpen, onClose }: ShareModalProps) {
           </div>
 
           <p className="text-xs text-zinc-500 text-center">
-            Escaneie para visitar sua pÃ¡gina
+            Escaneie para visitar sua página
           </p>
 
           <button
@@ -131,7 +131,7 @@ export default function ShareModal({ slug, isOpen, onClose }: ShareModalProps) {
         {/* Social share buttons */}
         <div className="grid grid-cols-3 gap-2 mt-4">
           <a
-            href={`https://wa.me/?text=${encodeURIComponent(`Confira minha pÃ¡gina: ${publicUrl}`)}`}
+            href={`https://wa.me/?text=${encodeURIComponent(`Confira minha página: ${publicUrl}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="py-2.5 rounded-xl bg-green-600/10 text-green-400 text-xs font-medium text-center hover:bg-green-600/20 transition-colors"

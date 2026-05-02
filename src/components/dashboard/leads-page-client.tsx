@@ -60,7 +60,7 @@ export default function LeadsPageClient({ leads: initialLeads, enabled }: LeadsP
           <h1 className="text-2xl font-bold">Leads</h1>
           <p className="text-zinc-400 text-sm mt-1">
             {leads.length} {leads.length === 1 ? 'email capturado' : 'emails capturados'}
-            {!enabled && ' Â· captura desativada no momento'}
+            {!enabled && ' · captura desativada no momento'}
           </p>
         </div>
 
@@ -70,14 +70,14 @@ export default function LeadsPageClient({ leads: initialLeads, enabled }: LeadsP
             disabled={isPending}
             className="px-4 py-2.5 rounded-xl bg-surface-hover hover:bg-zinc-700 text-sm font-medium transition-all disabled:opacity-50"
           >
-            {isPending ? 'Gerando...' : 'â¬‡ Exportar CSV'}
+            {isPending ? 'Gerando...' : '⬇ Exportar CSV'}
           </button>
         )}
       </div>
 
       {!enabled && (
         <div className="p-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 text-sm text-yellow-200">
-          A captura de email estÃ¡ desativada. Os leads abaixo continuam acessÃ­veis, mas novos visitantes nÃ£o conseguem se inscrever.{' '}
+          A captura de email está desativada. Os leads abaixo continuam acessíveis, mas novos visitantes não conseguem se inscrever.{' '}
           <Link href="/dashboard/aparencia" className="underline hover:text-yellow-100">
             Ativar agora
           </Link>
@@ -92,10 +92,10 @@ export default function LeadsPageClient({ leads: initialLeads, enabled }: LeadsP
 
       {leads.length === 0 ? (
         <div className="p-12 rounded-2xl border border-surface-border bg-surface-card text-center">
-          <div className="text-5xl mb-4">ðŸ“­</div>
+          <div className="text-5xl mb-4">🔭</div>
           <h3 className="font-semibold mb-2">Nenhum lead ainda</h3>
           <p className="text-zinc-400 text-sm max-w-sm mx-auto">
-            Quando alguÃ©m preencher o formulÃ¡rio na sua pÃ¡gina, o email aparecerÃ¡ aqui.
+            Quando alguém preencher o formulário na sua página, o email aparecerá aqui.
           </p>
         </div>
       ) : (

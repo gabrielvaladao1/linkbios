@@ -9,14 +9,14 @@ export type BillingInterval = 'monthly' | 'yearly'
 
 export const PLANS = {
   FREE: {
-    name: 'GrÃ¡tis',
+    name: 'Grátis',
     price: { monthly: 0, yearly: 0 },
     priceId: { monthly: null, yearly: null },
     features: [
       'Links ilimitados',
       '3 templates',
       'Analytics 30 dias',
-      'QR Code da pÃ¡gina',
+      'QR Code da página',
       'Social icons',
       'Marca PáginaBio',
     ],
@@ -43,13 +43,13 @@ export const PLANS = {
       'Links ilimitados',
       'Todos os 14+ templates',
       'Analytics completo',
-      'DomÃ­nio custom',
+      'Domínio custom',
       'Sem marca PáginaBio',
-      'BotÃ£o WhatsApp',
+      'Botão WhatsApp',
       'Captura de emails',
       'Pixel Meta/TikTok',
       'PIX e Boleto',
-      '2 pÃ¡ginas',
+      '2 páginas',
     ],
     limits: {
       maxLinks: Infinity,
@@ -72,11 +72,11 @@ export const PLANS = {
     },
     features: [
       'Tudo do Pro',
-      'Mini-loja com PIX (0% comissÃ£o)',
-      'AtÃ© 10 pÃ¡ginas',
-      'SEO avanÃ§ado',
-      'RelatÃ³rio PDF',
-      'Suporte prioritÃ¡rio',
+      'Mini-loja com PIX (0% comissão)',
+      'Até 10 páginas',
+      'SEO avançado',
+      'Relatório PDF',
+      'Suporte prioritário',
     ],
     limits: {
       maxLinks: Infinity,

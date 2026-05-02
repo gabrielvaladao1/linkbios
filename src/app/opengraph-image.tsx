@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'PáginaBio â€” Sua pÃ¡gina de links profissional'
+export const alt = 'PáginaBio — Sua página de links profissional'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -78,7 +78,7 @@ export default async function Image() {
             lineHeight: '1.4',
           }}
         >
-          Sua pÃ¡gina de links profissional. PIX nativo, analytics e WhatsApp.
+          Sua página de links profissional. PIX nativo, analytics e WhatsApp.
         </div>
 
         {/* Badge */}
@@ -94,7 +94,7 @@ export default async function Image() {
             fontWeight: 500,
           }}
         >
-          GrÃ¡tis para sempre â€¢ 100% brasileiro
+          Grátis para sempre • 100% brasileiro
         </div>
       </div>
     ),

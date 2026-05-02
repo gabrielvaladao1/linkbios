@@ -12,35 +12,32 @@ export default async function DashboardPage() {
 
   if (!user) return null
 
-  // Check setup progress
   const linkCount = await prisma.link.count({ where: { userId: user.id } })
   const socialLinks = (user.socialLinks as { platform: string; url: string }[]) || []
 
   const stats = [
-    { label: 'Visitas hoje', value: formatNumber(analytics?.viewsToday ?? 0), icon: 'ðŸ‘ï¸' },
-    { label: 'Ãšltimos 7 dias', value: formatNumber(analytics?.views7d ?? 0), icon: 'ðŸ“Š' },
-    { label: 'Total de cliques', value: formatNumber(analytics?.totalClicks ?? 0), icon: 'ðŸ–±ï¸' },
-    { label: 'CTR', value: `${analytics?.ctr ?? 0}%`, icon: 'ðŸ“ˆ' },
+    { label: 'Visitas hoje', value: formatNumber(analytics?.viewsToday ?? 0), icon: '👁️' },
+    { label: 'Últimos 7 dias', value: formatNumber(analytics?.views7d ?? 0), icon: '📊' },
+    { label: 'Total de cliques', value: formatNumber(analytics?.totalClicks ?? 0), icon: '🖱️' },
+    { label: 'CTR', value: `${analytics?.ctr ?? 0}%`, icon: '📈' },
   ]
 
   return (
     <div className="animate-fade-in space-y-8">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">
-            OlÃ¡, {user.name || user.slug}! ðŸ‘‹
+            Olá, {user.name || user.slug}! 👋
           </h1>
           <p className="text-zinc-400 mt-1">
-            Sua pÃ¡gina: <a href={`/${user.slug}`} target="_blank" className="text-brand-400 hover:underline">
-              paginabio.com.br/{user.slug} â†—
+            Sua página: <a href={`/${user.slug}`} target="_blank" className="text-brand-400 hover:underline">
+              paginabio.com.br/{user.slug} ↗
             </a>
           </p>
         </div>
         <ShareButton slug={user.slug} />
       </div>
 
-      {/* Setup Checklist */}
       <SetupChecklist
         hasLinks={linkCount > 0}
         hasAvatar={!!user.avatarUrl}
@@ -49,7 +46,6 @@ export default async function DashboardPage() {
         hasShared={(analytics?.viewsToday ?? 0) > 0}
       />
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <div key={i} className="p-5 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/30 transition-colors">
@@ -60,36 +56,27 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Quick Actions */}
       <div className="grid md:grid-cols-2 gap-4">
-        <Link
-          href="/dashboard/links"
-          className="group p-6 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/30 transition-all"
-        >
+        <Link href="/dashboard/links" className="group p-6 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-semibold group-hover:text-brand-400 transition-colors">Gerenciar links</h3>
               <p className="text-sm text-zinc-500 mt-1">Adicione, edite e reordene seus links</p>
             </div>
-            <span className="text-2xl">ðŸ”—</span>
+            <span className="text-2xl">🔗</span>
           </div>
         </Link>
-
-        <Link
-          href="/dashboard/aparencia"
-          className="group p-6 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/30 transition-all"
-        >
+        <Link href="/dashboard/aparencia" className="group p-6 rounded-2xl border border-surface-border bg-surface-card hover:border-brand-600/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-semibold group-hover:text-brand-400 transition-colors">Personalizar aparÃªncia</h3>
+              <h3 className="font-semibold group-hover:text-brand-400 transition-colors">Personalizar aparência</h3>
               <p className="text-sm text-zinc-500 mt-1">Escolha template, cores e foto</p>
             </div>
-            <span className="text-2xl">ðŸŽ¨</span>
+            <span className="text-2xl">🎨</span>
           </div>
         </Link>
       </div>
 
-      {/* Top Links */}
       {analytics && analytics.clickRanking.length > 0 && (
         <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
           <h3 className="font-semibold mb-4">Links mais clicados</h3>

@@ -12,7 +12,7 @@ export default function LandingPage() {
           <div className="hidden sm:flex items-center gap-6 text-sm text-zinc-400">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#how-it-works" className="hover:text-white transition-colors">Como funciona</a>
-            <a href="#pricing" className="hover:text-white transition-colors">PreÃ§os</a>
+            <a href="#pricing" className="hover:text-white transition-colors">Preços</a>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/login" className="text-sm text-zinc-400 hover:text-white transition-colors px-4 py-2">
@@ -22,7 +22,7 @@ export default function LandingPage() {
               href="/signup"
               className="text-sm font-medium bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-xl transition-all hover:shadow-lg hover:shadow-brand-600/25"
             >
-              Criar grÃ¡tis
+              Criar grátis
             </Link>
           </div>
         </div>
@@ -50,8 +50,8 @@ export default function LandingPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Crie sua pÃ¡gina de links profissional em 2 minutos. Venda por PIX, veja de onde vem seu pÃºblico e conecte seu WhatsApp.{' '}
-            <strong className="text-zinc-200">GrÃ¡tis para sempre.</strong>
+            Crie sua página de links profissional em 2 minutos. Venda por PIX, veja de onde vem seu público e conecte seu WhatsApp.{' '}
+            <strong className="text-zinc-200">Grátis para sempre.</strong>
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -59,7 +59,7 @@ export default function LandingPage() {
               href="/signup"
               className="w-full sm:w-auto text-center font-medium bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-2xl text-lg transition-all hover:shadow-xl hover:shadow-brand-600/25 hover:-translate-y-0.5 animate-pulse-glow"
             >
-              Criar minha pÃ¡gina grÃ¡tis â†’
+              Criar minha página grátis →
             </Link>
             <Link
               href="#how-it-works"
@@ -69,7 +69,7 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <p className="mt-6 text-sm text-zinc-500">Sem cartÃ£o de crÃ©dito. Sem enrolaÃ§Ã£o.</p>
+          <p className="mt-6 text-sm text-zinc-500">Sem cartão de crédito. Sem enrolação.</p>
         </div>
 
         {/* Hero Visual */}
@@ -80,12 +80,12 @@ export default function LandingPage() {
               <div className="max-w-xs mx-auto space-y-4 stagger-children">
                 <div className="text-center space-y-2">
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-brand-500 to-purple-500 mx-auto flex items-center justify-center text-2xl shadow-lg shadow-brand-600/20">
-                    ðŸš€
+                    🚀
                   </div>
                   <h3 className="font-semibold text-lg">@seunome</h3>
-                  <p className="text-sm text-zinc-400">Criador de conteÃºdo â€¢ SÃ£o Paulo</p>
+                  <p className="text-sm text-zinc-400">Criador de conteúdo • São Paulo</p>
                 </div>
-                {['Meu curso novo ðŸŽ“', 'Me siga no YouTube â–¶ï¸', 'E-book grÃ¡tis ðŸ“š', 'Fale comigo no WhatsApp ðŸ’¬'].map((text, i) => (
+                {['Meu curso novo 🎓', 'Me siga no YouTube ▶️', 'E-book grátis 📚', 'Fale comigo no WhatsApp 💬'].map((text, i) => (
                   <div
                     key={i}
                     className="w-full py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-center text-white text-sm font-medium transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-600/20 cursor-pointer"
@@ -106,17 +106,17 @@ export default function LandingPage() {
           <div className="flex flex-wrap items-center justify-center gap-8 text-zinc-500">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
-                {['ðŸŸ£', 'ðŸ”µ', 'ðŸŸ¢', 'ðŸŸ¡', 'ðŸ”´'].map((c, i) => (
+                {['🟣', '🔵', '🟢', '🟡', '🔴'].map((c, i) => (
                   <div key={i} className="w-8 h-8 rounded-full bg-surface-card border-2 border-surface flex items-center justify-center text-xs">
                     {c}
                   </div>
                 ))}
               </div>
-              <span className="text-sm">+500 criadores jÃ¡ usam</span>
+              <span className="text-sm">+500 criadores já usam</span>
             </div>
             <div className="flex items-center gap-1.5">
-              {[1,2,3,4,5].map(i => <span key={i} className="text-yellow-400 text-sm">â˜…</span>)}
-              <span className="text-sm ml-1">4.9/5 avaliaÃ§Ã£o</span>
+              {[1,2,3,4,5].map(i => <span key={i} className="text-yellow-400 text-sm">★</span>)}
+              <span className="text-sm ml-1">4.9/5 avaliação</span>
             </div>
           </div>
         </div>
@@ -129,14 +129,14 @@ export default function LandingPage() {
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
               Pronto em 3 passos
             </h2>
-            <p className="text-zinc-400 text-lg">Do zero Ã  pÃ¡gina publicada em 2 minutos.</p>
+            <p className="text-zinc-400 text-lg">Do zero à página publicada em 2 minutos.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 stagger-children">
             {[
-              { step: '01', title: 'Crie sua conta', desc: 'Escolha seu @nome e pronto. Email + senha, sem burocracia.', icon: 'âœ¨' },
-              { step: '02', title: 'Adicione seus links', desc: 'Cole suas URLs, escolha um template bonito e personalize as cores.', icon: 'ðŸ”—' },
-              { step: '03', title: 'Compartilhe', desc: 'Coloque o link na sua bio. Seus seguidores vÃ£o adorar.', icon: 'ðŸš€' },
+              { step: '01', title: 'Crie sua conta', desc: 'Escolha seu @nome e pronto. Email + senha, sem burocracia.', icon: '✨' },
+              { step: '02', title: 'Adicione seus links', desc: 'Cole suas URLs, escolha um template bonito e personalize as cores.', icon: '🔗' },
+              { step: '03', title: 'Compartilhe', desc: 'Coloque o link na sua bio. Seus seguidores vão adorar.', icon: '🚀' },
             ].map((item, i) => (
               <div key={i} className="relative text-center group">
                 <div className="w-16 h-16 rounded-2xl bg-brand-600/10 border border-brand-600/20 flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 group-hover:bg-brand-600/20 transition-all duration-300">
@@ -161,7 +161,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <span className="text-brand-400 text-sm font-medium tracking-widest uppercase">Features</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
-              Tudo que o Linktree nÃ£o tem
+              Tudo que o Linktree não tem
             </h2>
             <p className="text-zinc-400 text-lg max-w-xl mx-auto">
               Feito para quem vende e recebe no Brasil.
@@ -170,12 +170,12 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
             {[
-              { icon: 'ðŸ’¸', title: 'PIX nativo', desc: 'Receba pagamentos direto na sua pÃ¡gina. QR Code instantÃ¢neo, sem intermediÃ¡rio.' },
-              { icon: 'ðŸ“Š', title: 'Analytics em portuguÃªs', desc: 'Visitas, cliques e origem do pÃºblico. Dados reais, sem adivinhaÃ§Ã£o.' },
-              { icon: 'ðŸ’¬', title: 'WhatsApp integrado', desc: 'BotÃ£o flutuante de WhatsApp. Porque no Brasil, WhatsApp Ã© obrigatÃ³rio.' },
-              { icon: 'âš¡', title: 'Carrega em <1 segundo', desc: 'PÃ¡ginas via CDN global. Mais rÃ¡pido que Linktree, Stan e Beacons.' },
-              { icon: 'ðŸŽ¨', title: '14+ templates premium', desc: 'Minimalista, neon, gradiente, carnaval e muito mais. Todos incrÃ­veis no mobile.' },
-              { icon: 'ðŸ’°', title: '75% mais barato', desc: 'R$14,90/mÃªs vs R$80 do Linktree Pro. Mesmas features, preÃ§o justo.' },
+              { icon: '💸', title: 'PIX nativo', desc: 'Receba pagamentos direto na sua página. QR Code instantâneo, sem intermediário.' },
+              { icon: '📊', title: 'Analytics em português', desc: 'Visitas, cliques e origem do público. Dados reais, sem adivinhação.' },
+              { icon: '💬', title: 'WhatsApp integrado', desc: 'Botão flutuante de WhatsApp. Porque no Brasil, WhatsApp é obrigatório.' },
+              { icon: '⚡', title: 'Carrega em <1 segundo', desc: 'Páginas via CDN global. Mais rápido que Linktree, Stan e Beacons.' },
+              { icon: '🎨', title: '14+ templates premium', desc: 'Minimalista, neon, gradiente, carnaval e muito mais. Todos incríveis no mobile.' },
+              { icon: '💰', title: '75% mais barato', desc: 'R$14,90/mês vs R$80 do Linktree Pro. Mesmas features, preço justo.' },
             ].map((feature, i) => (
               <div
                 key={i}
@@ -201,7 +201,7 @@ export default function LandingPage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
               PáginaBio vs Linktree
             </h2>
-            <p className="text-zinc-400">ComparaÃ§Ã£o direta.</p>
+            <p className="text-zinc-400">Comparação direta.</p>
           </div>
 
           <div className="rounded-2xl border border-surface-border bg-surface-card overflow-hidden">
@@ -211,23 +211,23 @@ export default function LandingPage() {
               <div className="p-4 text-zinc-500">Linktree Pro</div>
             </div>
             {[
-              { feature: 'PreÃ§o mensal', smart: 'R$14,90/mÃªs', link: 'R$80/mÃªs' },
+              { feature: 'Preço mensal', smart: 'R$14,90/mês', link: 'R$80/mês' },
               { feature: 'Links', smart: 'Ilimitados', link: 'Ilimitados' },
-              { feature: 'PIX nativo', smart: 'âœ“', link: 'âœ•' },
-              { feature: 'WhatsApp', smart: 'âœ“', link: 'âœ•' },
-              { feature: 'Em portuguÃªs', smart: 'âœ“', link: 'âœ•' },
-              { feature: 'Analytics', smart: 'âœ“', link: 'âœ“' },
-              { feature: 'Templates', smart: '14+', link: 'âˆž' },
-              { feature: 'Pixel Meta/TikTok', smart: 'âœ“', link: 'âœ“' },
-              { feature: 'DomÃ­nio custom', smart: 'âœ“', link: 'âœ“' },
-              { feature: 'Remover marca', smart: 'âœ“', link: 'âœ“' },
-              { feature: 'Captura de emails', smart: 'âœ“', link: 'âœ“' },
-              { feature: 'Pagar com PIX/Boleto', smart: 'âœ“', link: 'âœ•' },
+              { feature: 'PIX nativo', smart: '✓', link: '✕' },
+              { feature: 'WhatsApp', smart: '✓', link: '✕' },
+              { feature: 'Em português', smart: '✓', link: '✕' },
+              { feature: 'Analytics', smart: '✓', link: '✓' },
+              { feature: 'Templates', smart: '14+', link: '∞' },
+              { feature: 'Pixel Meta/TikTok', smart: '✓', link: '✓' },
+              { feature: 'Domínio custom', smart: '✓', link: '✓' },
+              { feature: 'Remover marca', smart: '✓', link: '✓' },
+              { feature: 'Captura de emails', smart: '✓', link: '✓' },
+              { feature: 'Pagar com PIX/Boleto', smart: '✓', link: '✕' },
             ].map((row, i) => (
               <div key={i} className={`grid grid-cols-3 text-center text-sm ${i % 2 === 0 ? '' : 'bg-surface/50'}`}>
                 <div className="p-3.5 text-zinc-400 text-left pl-6">{row.feature}</div>
-                <div className={`p-3.5 font-medium bg-brand-600/5 ${row.smart === 'âœ“' ? 'text-green-400' : row.smart === 'âœ•' ? 'text-red-400' : 'text-white'}`}>{row.smart}</div>
-                <div className={`p-3.5 ${row.link === 'âœ“' ? 'text-green-400' : row.link === 'âœ•' ? 'text-red-400' : 'text-zinc-300'}`}>{row.link}</div>
+                <div className={`p-3.5 font-medium bg-brand-600/5 ${row.smart === '✓' ? 'text-green-400' : row.smart === '✕' ? 'text-red-400' : 'text-white'}`}>{row.smart}</div>
+                <div className={`p-3.5 ${row.link === '✓' ? 'text-green-400' : row.link === '✕' ? 'text-red-400' : 'text-zinc-300'}`}>{row.link}</div>
               </div>
             ))}
           </div>
@@ -238,25 +238,25 @@ export default function LandingPage() {
       <section id="pricing" className="py-24 px-4 border-t border-surface-border/50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-brand-400 text-sm font-medium tracking-widest uppercase">PreÃ§os</span>
+            <span className="text-brand-400 text-sm font-medium tracking-widest uppercase">Preços</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
-              PreÃ§o justo, em real
+              Preço justo, em real
             </h2>
-            <p className="text-zinc-400 text-lg">Sem cobrar em dÃ³lar. Sem surpresa na fatura.</p>
+            <p className="text-zinc-400 text-lg">Sem cobrar em dólar. Sem surpresa na fatura.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 stagger-children">
             {/* Free */}
             <div className="p-8 rounded-2xl border border-surface-border bg-surface-card hover:border-zinc-600 transition-all">
-              <h3 className="font-semibold text-lg mb-1">GrÃ¡tis</h3>
+              <h3 className="font-semibold text-lg mb-1">Grátis</h3>
               <div className="flex items-end gap-1 mb-6">
                 <span className="text-4xl font-bold">R$0</span>
-                <span className="text-zinc-500 mb-1">/mÃªs</span>
+                <span className="text-zinc-500 mb-1">/mês</span>
               </div>
               <ul className="space-y-3 mb-8">
-                {['Links ilimitados', '3 templates', 'Analytics 30 dias', 'QR Code da pÃ¡gina', 'Social icons', 'Marca PáginaBio'].map((f, i) => (
+                {['Links ilimitados', '3 templates', 'Analytics 30 dias', 'QR Code da página', 'Social icons', 'Marca PáginaBio'].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">âœ“</span> {f}
+                    <span className="text-brand-400">✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -264,7 +264,7 @@ export default function LandingPage() {
                 href="/signup"
                 className="block w-full text-center py-3 rounded-xl border border-surface-border hover:border-zinc-600 text-sm font-medium transition-all hover:bg-surface-hover"
               >
-                ComeÃ§ar grÃ¡tis
+                Começar grátis
               </Link>
             </div>
 
@@ -276,12 +276,12 @@ export default function LandingPage() {
               <h3 className="font-semibold text-lg mb-1">Pro</h3>
               <div className="flex items-end gap-1 mb-6">
                 <span className="text-4xl font-bold">R$14,90</span>
-                <span className="text-zinc-500 mb-1">/mÃªs</span>
+                <span className="text-zinc-500 mb-1">/mês</span>
               </div>
               <ul className="space-y-3 mb-8">
-                {['Links ilimitados', 'Todos os 14+ templates', 'Analytics completo', 'Sem marca PáginaBio', 'DomÃ­nio custom', 'BotÃ£o WhatsApp', 'Captura de emails', 'Pixel Meta/TikTok', 'PIX e Boleto'].map((f, i) => (
+                {['Links ilimitados', 'Todos os 14+ templates', 'Analytics completo', 'Sem marca PáginaBio', 'Domínio custom', 'Botão WhatsApp', 'Captura de emails', 'Pixel Meta/TikTok', 'PIX e Boleto'].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">âœ“</span> {f}
+                    <span className="text-brand-400">✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -298,12 +298,12 @@ export default function LandingPage() {
               <h3 className="font-semibold text-lg mb-1">Business</h3>
               <div className="flex items-end gap-1 mb-6">
                 <span className="text-4xl font-bold">R$29,90</span>
-                <span className="text-zinc-500 mb-1">/mÃªs</span>
+                <span className="text-zinc-500 mb-1">/mês</span>
               </div>
               <ul className="space-y-3 mb-8">
-                {['Tudo do Pro', 'Mini-loja com PIX (0%)', 'AtÃ© 10 pÃ¡ginas', 'SEO avanÃ§ado', 'RelatÃ³rio PDF', 'Suporte prioritÃ¡rio'].map((f, i) => (
+                {['Tudo do Pro', 'Mini-loja com PIX (0%)', 'Até 10 páginas', 'SEO avançado', 'Relatório PDF', 'Suporte prioritário'].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">âœ“</span> {f}
+                    <span className="text-brand-400">✓</span> {f}
                   </li>
                 ))}
               </ul>
@@ -326,13 +326,13 @@ export default function LandingPage() {
             Pronto para transformar sua bio?
           </h2>
           <p className="text-zinc-400 text-lg mb-8">
-            Crie sua pÃ¡gina em 2 minutos. GrÃ¡tis para sempre.
+            Crie sua página em 2 minutos. Grátis para sempre.
           </p>
           <Link
             href="/signup"
             className="inline-block font-medium bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-2xl text-lg transition-all hover:shadow-xl hover:shadow-brand-600/25 hover:-translate-y-0.5"
           >
-            Criar minha pÃ¡gina grÃ¡tis â†’
+            Criar minha página grátis →
           </Link>
         </div>
       </section>
@@ -345,19 +345,19 @@ export default function LandingPage() {
               <span className="font-display text-lg font-bold bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text text-transparent">
                 PáginaBio
               </span>
-              <p className="text-xs text-zinc-600 mt-1">Sua pÃ¡gina de links profissional</p>
+              <p className="text-xs text-zinc-600 mt-1">Sua página de links profissional</p>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-500">
               <Link href="/login" className="hover:text-zinc-300 transition-colors">Entrar</Link>
               <Link href="/signup" className="hover:text-zinc-300 transition-colors">Criar conta</Link>
-              <a href="#pricing" className="hover:text-zinc-300 transition-colors">PreÃ§os</a>
+              <a href="#pricing" className="hover:text-zinc-300 transition-colors">Preços</a>
               <Link href="/termos" className="hover:text-zinc-300 transition-colors">Termos</Link>
               <Link href="/privacidade" className="hover:text-zinc-300 transition-colors">Privacidade</Link>
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-surface-border/30 text-center">
             <p className="text-xs text-zinc-600">
-              Â© {new Date().getFullYear()} PáginaBio. Feito com ðŸ’œ no Brasil.
+              © {new Date().getFullYear()} PáginaBio. Feito com 💜 no Brasil.
             </p>
           </div>
         </div>

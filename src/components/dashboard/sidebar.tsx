@@ -16,13 +16,13 @@ interface SidebarProps {
 }
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'VisÃ£o geral', icon: 'ðŸ“Š' },
-  { href: '/dashboard/links', label: 'Links', icon: 'ðŸ”—' },
-  { href: '/dashboard/aparencia', label: 'AparÃªncia', icon: 'ðŸŽ¨' },
-  { href: '/dashboard/analytics', label: 'Analytics', icon: 'ðŸ“ˆ' },
-  { href: '/dashboard/leads', label: 'Leads', icon: 'ðŸ“§' },
-  { href: '/dashboard/planos', label: 'Planos', icon: 'ðŸ’Ž' },
-  { href: '/dashboard/configuracoes', label: 'ConfiguraÃ§Ãµes', icon: 'âš™ï¸' },
+  { href: '/dashboard', label: 'Visão geral', icon: '📊' },
+  { href: '/dashboard/links', label: 'Links', icon: '🔗' },
+  { href: '/dashboard/aparencia', label: 'Aparência', icon: '🎨' },
+  { href: '/dashboard/analytics', label: 'Analytics', icon: '📈' },
+  { href: '/dashboard/leads', label: 'Leads', icon: '📧' },
+  { href: '/dashboard/planos', label: 'Planos', icon: '💎' },
+  { href: '/dashboard/configuracoes', label: 'Configurações', icon: '⚙️' },
 ]
 
 function SidebarContent({ user, onNavigate, setupProgress }: SidebarProps & { onNavigate?: () => void }) {
@@ -54,7 +54,7 @@ function SidebarContent({ user, onNavigate, setupProgress }: SidebarProps & { on
             user.plan === 'PRO' ? 'bg-brand-600/20 text-brand-400' :
             'bg-purple-600/20 text-purple-400'
           }`}>
-            {user.plan === 'FREE' ? 'GrÃ¡tis' : user.plan}
+            {user.plan === 'FREE' ? 'Grátis' : user.plan}
           </span>
         </div>
       </div>
@@ -95,9 +95,9 @@ function SidebarContent({ user, onNavigate, setupProgress }: SidebarProps & { on
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-white hover:bg-surface-hover transition-all"
         >
-          <span>ðŸŒ</span>
-          Ver minha pÃ¡gina
-          <span className="text-xs">â†—</span>
+          <span>🌐</span>
+          Ver minha página
+          <span className="text-xs">↗</span>
         </a>
       </div>
 
@@ -108,7 +108,7 @@ function SidebarContent({ user, onNavigate, setupProgress }: SidebarProps & { on
             type="submit"
             className="flex items-center gap-3 w-full px-4 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-red-400 hover:bg-red-500/5 transition-all"
           >
-            <span>ðŸšª</span>
+            <span>🚪</span>
             Sair
           </button>
         </form>

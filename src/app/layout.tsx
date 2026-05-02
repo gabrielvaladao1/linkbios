@@ -16,26 +16,26 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: 'PáginaBio â€” Sua pÃ¡gina de links profissional com PIX',
-    template: '%s â€” PáginaBio',
+    default: 'PáginaBio — Sua página de links profissional com PIX',
+    template: '%s — PáginaBio',
   },
   description:
-    'Crie sua pÃ¡gina de links profissional em 2 minutos. Venda por PIX, veja analytics e conecte seu WhatsApp. 100% brasileira, em portuguÃªs e com preÃ§o em real.',
-  keywords: ['link na bio', 'linktree alternativa', 'pÃ¡gina de links', 'pix', 'link in bio brasil', 'PáginaBio', 'bio link'],
+    'Crie sua página de links profissional em 2 minutos. Venda por PIX, veja analytics e conecte seu WhatsApp. 100% brasileira, em português e com preço em real.',
+  keywords: ['link na bio', 'linktree alternativa', 'página de links', 'pix', 'link in bio brasil', 'PáginaBio', 'bio link'],
   authors: [{ name: 'PáginaBio' }],
   creator: 'PáginaBio',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://paginabio.com.br'),
   openGraph: {
-    title: 'PáginaBio â€” Sua pÃ¡gina de links profissional com PIX',
-    description: 'Crie sua pÃ¡gina de links em 2 minutos. PIX nativo, analytics e WhatsApp.',
+    title: 'PáginaBio — Sua página de links profissional com PIX',
+    description: 'Crie sua página de links em 2 minutos. PIX nativo, analytics e WhatsApp.',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'PáginaBio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PáginaBio â€” Sua pÃ¡gina de links profissional com PIX',
-    description: 'Crie sua pÃ¡gina de links em 2 minutos. PIX nativo, analytics e WhatsApp.',
+    title: 'PáginaBio — Sua página de links profissional com PIX',
+    description: 'Crie sua página de links em 2 minutos. PIX nativo, analytics e WhatsApp.',
   },
   robots: {
     index: true,

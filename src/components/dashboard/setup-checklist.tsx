@@ -38,26 +38,26 @@ export default function SetupChecklist({
     {
       id: 'links',
       label: 'Adicionar seu primeiro link',
-      description: 'Adicione pelo menos um link para sua pÃ¡gina',
+      description: 'Adicione pelo menos um link para sua página',
       href: '/dashboard/links',
       done: hasLinks,
-      icon: 'ðŸ”—',
+      icon: '🔗',
     },
     {
       id: 'avatar',
       label: 'Foto de perfil',
-      description: 'Envie uma foto para personalizar sua pÃ¡gina',
+      description: 'Envie uma foto para personalizar sua página',
       href: '/dashboard/aparencia',
       done: hasAvatar,
-      icon: 'ðŸ“¸',
+      icon: '📸',
     },
     {
       id: 'template',
-      label: 'Personalizar aparÃªncia',
+      label: 'Personalizar aparência',
       description: 'Escolha um template e ajuste as cores',
       href: '/dashboard/aparencia',
       done: hasCustomTemplate,
-      icon: 'ðŸŽ¨',
+      icon: '🎨',
     },
     {
       id: 'social',
@@ -65,15 +65,15 @@ export default function SetupChecklist({
       description: 'Adicione seus perfis sociais',
       href: '/dashboard/aparencia',
       done: hasSocialLinks,
-      icon: 'ðŸ“±',
+      icon: '📱',
     },
     {
       id: 'share',
-      label: 'Compartilhar sua pÃ¡gina',
+      label: 'Compartilhar sua página',
       description: 'Copie o link ou compartilhe nas redes',
       href: '/dashboard',
       done: hasShared,
-      icon: 'ðŸš€',
+      icon: '🚀',
     },
   ]
 
@@ -107,12 +107,12 @@ export default function SetupChecklist({
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-semibold flex items-center gap-2">
-            {allDone ? 'ðŸŽ‰ Tudo pronto!' : 'ðŸš€ Configure sua pÃ¡gina'}
+            {allDone ? '🎉 Tudo pronto!' : '🚀 Configure sua página'}
           </h3>
           <p className="text-sm text-zinc-400 mt-0.5">
             {allDone
-              ? 'Sua pÃ¡gina estÃ¡ completa. Hora de crescer!'
-              : `${completedCount} de ${totalSteps} passos concluÃ­dos`}
+              ? 'Sua página está completa. Hora de crescer!'
+              : `${completedCount} de ${totalSteps} passos concluídos`}
           </p>
         </div>
         <div className="flex items-center gap-3">

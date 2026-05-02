@@ -23,7 +23,7 @@ export const PLAN_LIMITS = {
 } as const
 
 export const APP_NAME = 'PáginaBio'
-export const APP_DESCRIPTION = 'Sua pÃ¡gina de links profissional com PIX, analytics e WhatsApp. 100% brasileira.'
+export const APP_DESCRIPTION = 'Sua página de links profissional com PIX, analytics e WhatsApp. 100% brasileira.'
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://paginabio.com.br'
 
 export const RESERVED_SLUGS = [

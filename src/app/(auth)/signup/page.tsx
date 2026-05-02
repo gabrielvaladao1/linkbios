@@ -50,7 +50,7 @@ export default function SignupPage() {
           <Logo size="md" />
           <h1 className="text-2xl font-bold mt-6 mb-2">Confira seu email</h1>
           <p className="text-zinc-400 text-sm">
-            Enviamos um link de confirmaÃ§Ã£o para
+            Enviamos um link de confirmação para
             <br />
             <strong className="text-zinc-200">{verifyEmail || 'seu email'}</strong>
           </p>
@@ -58,10 +58,10 @@ export default function SignupPage() {
 
         <div className="p-8 rounded-2xl border border-surface-border bg-surface-card space-y-4">
           <p className="text-sm text-zinc-300 leading-relaxed">
-            Clique no link do email para ativar sua conta. Depois disso, Ã© sÃ³ fazer login.
+            Clique no link do email para ativar sua conta. Depois disso, é só fazer login.
           </p>
           <div className="text-xs text-zinc-500 leading-relaxed">
-            <p className="mb-1.5">NÃ£o chegou em alguns minutos?</p>
+            <p className="mb-1.5">Não chegou em alguns minutos?</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>Verifique a pasta de spam.</li>
               <li>Confirme se digitou o email certo.</li>
@@ -82,8 +82,8 @@ export default function SignupPage() {
     <div className="animate-fade-in">
       <div className="text-center mb-8">
         <Logo size="md" />
-        <h1 className="text-2xl font-bold mt-6 mb-2">Crie sua pÃ¡gina grÃ¡tis</h1>
-        <p className="text-zinc-400 text-sm">Em 2 minutos sua pÃ¡gina estÃ¡ no ar</p>
+        <h1 className="text-2xl font-bold mt-6 mb-2">Crie sua página grátis</h1>
+        <p className="text-zinc-400 text-sm">Em 2 minutos sua página está no ar</p>
       </div>
 
       <div className="p-8 rounded-2xl border border-surface-border bg-surface-card">
@@ -112,12 +112,12 @@ export default function SignupPage() {
               type="password"
               required
               minLength={8}
-              placeholder="MÃ­nimo 8 caracteres"
+              placeholder="Mínimo 8 caracteres"
               autoComplete="new-password"
               className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-border text-white placeholder:text-zinc-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors"
             />
             <p className="mt-1.5 text-xs text-zinc-500">
-              Pelo menos 8 caracteres, com letras e nÃºmeros.
+              Pelo menos 8 caracteres, com letras e números.
             </p>
           </div>
 
@@ -144,18 +144,18 @@ export default function SignupPage() {
                   {slugChecking ? (
                     <span className="text-zinc-500 text-xs">...</span>
                   ) : slugAvailable ? (
-                    <span className="text-green-400 text-sm">âœ“</span>
+                    <span className="text-green-400 text-sm">✓</span>
                   ) : (
-                    <span className="text-red-400 text-sm">âœ—</span>
+                    <span className="text-red-400 text-sm">✗</span>
                   )}
                 </span>
               )}
             </div>
             {slug.length >= 2 && !slugChecking && slugAvailable === false && (
-              <p className="mt-1 text-xs text-red-400">Este nome jÃ¡ estÃ¡ em uso</p>
+              <p className="mt-1 text-xs text-red-400">Este nome já está em uso</p>
             )}
             {slug.length >= 2 && !slugChecking && slugAvailable === true && (
-              <p className="mt-1 text-xs text-green-400">DisponÃ­vel! ðŸŽ‰</p>
+              <p className="mt-1 text-xs text-green-400">Disponível! 🎉</p>
             )}
           </div>
 
@@ -170,23 +170,23 @@ export default function SignupPage() {
             disabled={loading || slugAvailable === false}
             className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium transition-all hover:shadow-lg hover:shadow-brand-600/25 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Criando conta...' : 'Criar minha pÃ¡gina grÃ¡tis'}
+            {loading ? 'Criando conta...' : 'Criar minha página grátis'}
           </button>
         </form>
       </div>
 
       <p className="text-center text-sm text-zinc-500 mt-6">
-        JÃ¡ tem conta?{' '}
+        Já tem conta?{' '}
         <Link href="/login" className="text-brand-400 hover:text-brand-300 font-medium transition-colors">
           Entrar
         </Link>
       </p>
 
       <p className="text-center text-xs text-zinc-600 mt-4 leading-relaxed">
-        Ao criar uma conta, vocÃª concorda com os{' '}
+        Ao criar uma conta, você concorda com os{' '}
         <Link href="/termos" className="text-zinc-400 hover:text-zinc-200 underline underline-offset-2">Termos de Uso</Link>
         {' '}e a{' '}
-        <Link href="/privacidade" className="text-zinc-400 hover:text-zinc-200 underline underline-offset-2">PolÃ­tica de Privacidade</Link>.
+        <Link href="/privacidade" className="text-zinc-400 hover:text-zinc-200 underline underline-offset-2">Política de Privacidade</Link>.
       </p>
     </div>
   )
