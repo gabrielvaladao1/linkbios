@@ -67,7 +67,6 @@ export const PLANS = {
       'Botão WhatsApp',
       'Captura de emails',
       'Pixel Meta/TikTok',
-      'PIX e Boleto',
       '2 páginas',
     ],
     limits: {

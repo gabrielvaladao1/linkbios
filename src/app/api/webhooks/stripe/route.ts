@@ -91,13 +91,17 @@ export async function POST(request: NextRequest) {
         const sub = event.data.object as unknown as Record<string, unknown>
         const subId = sub.id as string
         const subStatus = sub.status as string
-        const metadata = sub.metadata as Record<string, string> | undefined
-        const userId = metadata?.userId
         const periodStart = sub.current_period_start as number
         const periodEnd = sub.current_period_end as number
         const cancelAtEnd = sub.cancel_at_period_end as boolean
 
-        if (!userId) break
+        // Lookup pelo subId em vez de exigir metadata.userId — subscriptions
+        // criadas antes de propagarmos metadata pra subscription_data não têm
+        // userId aqui, então buscamos a Subscription correspondente no banco.
+        const existing = await prisma.subscription.findUnique({
+          where: { stripeSubscriptionId: subId },
+        })
+        if (!existing) break
 
         const status = subStatus === 'active'
           ? 'ACTIVE'

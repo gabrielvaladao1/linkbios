@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { stripe, PLANS, type BillingInterval } from '@/lib/stripe'
 import { getCurrentUser } from './auth'
 import { redirect } from 'next/navigation'
+import type { Plan } from '@prisma/client'
 
 export async function createCheckoutSession(planKey: 'PRO' | 'BUSINESS', interval: BillingInterval = 'monthly') {
   const user = await getCurrentUser()
@@ -35,14 +36,18 @@ export async function createCheckoutSession(planKey: 'PRO' | 'BUSINESS', interva
       })
     }
 
+    const metadata = { userId: user.id, plan: planKey, interval }
+
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       payment_method_types: ['card'],
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgrade=success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/planos`,
-      metadata: { userId: user.id, plan: planKey, interval },
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/upgrade-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/planos?canceled=1`,
+      metadata,
+      // Espelha metadata na subscription pra eventos futuros (updated/deleted)
+      subscription_data: { metadata },
     })
     sessionUrl = session.url
   } catch (err) {
@@ -56,6 +61,89 @@ export async function createCheckoutSession(planKey: 'PRO' | 'BUSINESS', interva
   }
 
   redirect(sessionUrl)
+}
+
+type SyncResult =
+  | { ok: true; plan: 'PRO' | 'BUSINESS'; interval: BillingInterval }
+  | { ok: false; error: string }
+
+// Sincroniza o estado de assinatura a partir de uma checkout session do Stripe.
+// Idempotente: pode rodar antes ou depois do webhook sem efeito colateral.
+// É a fonte de verdade para o retorno do checkout (success_url) — se o webhook
+// atrasar ou falhar, o plano ainda é refletido no banco no instante do retorno.
+export async function syncCheckoutSession(sessionId: string): Promise<SyncResult> {
+  const user = await getCurrentUser()
+  if (!user) return { ok: false, error: 'Não autenticado' }
+
+  if (!sessionId || typeof sessionId !== 'string' || !sessionId.startsWith('cs_')) {
+    return { ok: false, error: 'session_id inválido' }
+  }
+
+  let session
+  try {
+    session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['subscription'],
+    })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'erro desconhecido'
+    return { ok: false, error: `Não foi possível recuperar a sessão: ${msg}` }
+  }
+
+  const metadata = (session.metadata ?? {}) as Record<string, string>
+
+  // Defesa: a session só pode atualizar o plano do dono dela.
+  if (metadata.userId !== user.id) {
+    return { ok: false, error: 'Sessão não pertence a este usuário' }
+  }
+
+  const planKey = metadata.plan
+  if (planKey !== 'PRO' && planKey !== 'BUSINESS') {
+    return { ok: false, error: 'Plano inválido na sessão' }
+  }
+  const interval = (metadata.interval === 'yearly' ? 'yearly' : 'monthly') as BillingInterval
+
+  if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') {
+    return { ok: false, error: `Pagamento ainda não confirmado (status: ${session.payment_status})` }
+  }
+
+  const subscription = session.subscription
+  if (!subscription || typeof subscription === 'string') {
+    return { ok: false, error: 'Sessão sem assinatura expandida' }
+  }
+
+  const sub = subscription as unknown as {
+    id: string
+    items: { data: Array<{ price: { id: string } }> }
+    current_period_start: number
+    current_period_end: number
+  }
+
+  await prisma.subscription.upsert({
+    where: { userId: user.id },
+    create: {
+      userId: user.id,
+      stripeSubscriptionId: sub.id,
+      stripePriceId: sub.items.data[0].price.id,
+      status: 'ACTIVE',
+      currentPeriodStart: new Date(sub.current_period_start * 1000),
+      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+    },
+    update: {
+      stripeSubscriptionId: sub.id,
+      stripePriceId: sub.items.data[0].price.id,
+      status: 'ACTIVE',
+      currentPeriodStart: new Date(sub.current_period_start * 1000),
+      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+      cancelAtPeriodEnd: false,
+    },
+  })
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { plan: planKey as Plan, hideBranding: true },
+  })
+
+  return { ok: true, plan: planKey, interval }
 }
 
 export async function cancelSubscription() {
