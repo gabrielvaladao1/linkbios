@@ -113,27 +113,40 @@ export async function syncCheckoutSession(sessionId: string): Promise<SyncResult
 
   const sub = subscription as unknown as {
     id: string
-    items: { data: Array<{ price: { id: string } }> }
-    current_period_start: number
-    current_period_end: number
+    items: {
+      data: Array<{
+        price: { id: string }
+        current_period_start: number
+        current_period_end: number
+      }>
+    }
   }
+
+  // Stripe API 2026-04-22.dahlia moveu current_period_start/end da subscription
+  // para o subscription item. Lemos do primeiro item (temos 1 price por sub).
+  const item = sub.items.data[0]
+  if (!item || typeof item.current_period_start !== 'number' || typeof item.current_period_end !== 'number') {
+    return { ok: false, error: 'Subscription item sem período definido' }
+  }
+  const periodStart = new Date(item.current_period_start * 1000)
+  const periodEnd = new Date(item.current_period_end * 1000)
 
   await prisma.subscription.upsert({
     where: { userId: user.id },
     create: {
       userId: user.id,
       stripeSubscriptionId: sub.id,
-      stripePriceId: sub.items.data[0].price.id,
+      stripePriceId: item.price.id,
       status: 'ACTIVE',
-      currentPeriodStart: new Date(sub.current_period_start * 1000),
-      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+      currentPeriodStart: periodStart,
+      currentPeriodEnd: periodEnd,
     },
     update: {
       stripeSubscriptionId: sub.id,
-      stripePriceId: sub.items.data[0].price.id,
+      stripePriceId: item.price.id,
       status: 'ACTIVE',
-      currentPeriodStart: new Date(sub.current_period_start * 1000),
-      currentPeriodEnd: new Date(sub.current_period_end * 1000),
+      currentPeriodStart: periodStart,
+      currentPeriodEnd: periodEnd,
       cancelAtPeriodEnd: false,
     },
   })

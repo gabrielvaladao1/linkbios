@@ -50,10 +50,17 @@ export async function POST(request: NextRequest) {
         if (!userId || !planKey) break
 
         const subscriptionId = session.subscription as string
-        const sub = await stripe.subscriptions.retrieve(subscriptionId) as unknown as Record<string, unknown>
-        const items = sub.items as { data: Array<{ price: { id: string } }> }
-        const periodStart = sub.current_period_start as number
-        const periodEnd = sub.current_period_end as number
+        const sub = await stripe.subscriptions.retrieve(subscriptionId) as unknown as {
+          items: {
+            data: Array<{
+              price: { id: string }
+              current_period_start: number
+              current_period_end: number
+            }>
+          }
+        }
+        const item = sub.items.data[0]
+        if (!item) break
 
         // Create subscription record
         await prisma.subscription.upsert({
@@ -61,17 +68,17 @@ export async function POST(request: NextRequest) {
           create: {
             userId,
             stripeSubscriptionId: subscriptionId,
-            stripePriceId: items.data[0].price.id,
+            stripePriceId: item.price.id,
             status: 'ACTIVE',
-            currentPeriodStart: new Date(periodStart * 1000),
-            currentPeriodEnd: new Date(periodEnd * 1000),
+            currentPeriodStart: new Date(item.current_period_start * 1000),
+            currentPeriodEnd: new Date(item.current_period_end * 1000),
           },
           update: {
             stripeSubscriptionId: subscriptionId,
-            stripePriceId: items.data[0].price.id,
+            stripePriceId: item.price.id,
             status: 'ACTIVE',
-            currentPeriodStart: new Date(periodStart * 1000),
-            currentPeriodEnd: new Date(periodEnd * 1000),
+            currentPeriodStart: new Date(item.current_period_start * 1000),
+            currentPeriodEnd: new Date(item.current_period_end * 1000),
             cancelAtPeriodEnd: false,
           },
         })
@@ -88,12 +95,21 @@ export async function POST(request: NextRequest) {
       }
 
       case 'customer.subscription.updated': {
-        const sub = event.data.object as unknown as Record<string, unknown>
-        const subId = sub.id as string
-        const subStatus = sub.status as string
-        const periodStart = sub.current_period_start as number
-        const periodEnd = sub.current_period_end as number
-        const cancelAtEnd = sub.cancel_at_period_end as boolean
+        const sub = event.data.object as unknown as {
+          id: string
+          status: string
+          cancel_at_period_end: boolean
+          items: {
+            data: Array<{
+              current_period_start: number
+              current_period_end: number
+            }>
+          }
+        }
+        const subId = sub.id
+        const subStatus = sub.status
+        const cancelAtEnd = sub.cancel_at_period_end
+        const item = sub.items?.data?.[0]
 
         // Lookup pelo subId em vez de exigir metadata.userId — subscriptions
         // criadas antes de propagarmos metadata pra subscription_data não têm
@@ -115,8 +131,11 @@ export async function POST(request: NextRequest) {
           where: { stripeSubscriptionId: subId },
           data: {
             status,
-            currentPeriodStart: new Date(periodStart * 1000),
-            currentPeriodEnd: new Date(periodEnd * 1000),
+            // Se o item não veio com período (raro), preserva o anterior.
+            ...(item && {
+              currentPeriodStart: new Date(item.current_period_start * 1000),
+              currentPeriodEnd: new Date(item.current_period_end * 1000),
+            }),
             cancelAtPeriodEnd: cancelAtEnd,
           },
         })
