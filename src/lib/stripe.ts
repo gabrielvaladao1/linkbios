@@ -70,7 +70,7 @@ export const PLANS = {
       '2 páginas',
     ],
     // Features anunciadas mas ainda em construção — renderizadas com badge "em breve".
-    comingSoon: ['Domínio custom'] as readonly string[],
+    comingSoon: ['Domínio custom', '2 páginas'] as readonly string[],
     limits: {
       maxLinks: Infinity,
       analyticsRetentionDays: 365,
@@ -98,6 +98,13 @@ export const PLANS = {
       'Relatório PDF',
       'Suporte prioritário',
     ],
+    comingSoon: [
+      'Mini-loja com PIX (0% comissão)',
+      'Até 10 páginas',
+      'SEO avançado',
+      'Relatório PDF',
+      'Suporte prioritário',
+    ] as readonly string[],
     limits: {
       maxLinks: Infinity,
       analyticsRetentionDays: 365,

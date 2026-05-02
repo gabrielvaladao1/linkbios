@@ -18,17 +18,19 @@ const PLAN_BENEFITS: Record<'PRO' | 'BUSINESS', { intro: string; benefits: Benef
       { icon: '📧', title: 'Captura de emails', desc: 'Cresça sua lista coletando leads direto da página.' },
       { icon: '🎯', title: 'Pixel Meta/TikTok', desc: 'Faça remarketing e otimize anúncios com tracking nativo.' },
       { icon: '🌐', title: 'Domínio próprio', desc: 'Conecte seudominio.com.br à sua página. Avisamos por email assim que liberar.', comingSoon: true },
+      { icon: '📄', title: '2 páginas', desc: 'Crie uma segunda página pra projetos paralelos. Avisamos quando liberar.', comingSoon: true },
     ],
   },
   BUSINESS: {
-    intro: 'Você está no plano mais completo. Bora vender e escalar.',
+    intro:
+      'Você está no plano mais completo. Hoje você tem tudo do Pro — e os recursos exclusivos do Business chegam nos próximos meses. Avisamos por email a cada lançamento.',
     benefits: [
-      { icon: '🛒', title: 'Mini-loja com PIX', desc: 'Receba pagamentos com 0% de comissão direto na sua página.' },
-      { icon: '📚', title: 'Até 10 páginas', desc: 'Uma página por projeto, campanha ou produto.' },
-      { icon: '🔍', title: 'SEO avançado', desc: 'Schema.org, sitemap, meta tags otimizadas e canonical.' },
-      { icon: '📈', title: 'Relatório PDF', desc: 'Exporte um relatório mensal completo da sua performance.' },
-      { icon: '⚡', title: 'Suporte prioritário', desc: 'Resposta em até 24h em dias úteis.' },
       { icon: '✨', title: 'Tudo do Pro incluso', desc: 'Templates, analytics, captura de leads, pixel e branding 100% seu.' },
+      { icon: '🛒', title: 'Mini-loja com PIX', desc: 'Receba pagamentos com 0% de comissão direto na sua página. Avisamos quando liberar.', comingSoon: true },
+      { icon: '📚', title: 'Até 10 páginas', desc: 'Uma página por projeto, campanha ou produto. Avisamos quando liberar.', comingSoon: true },
+      { icon: '🔍', title: 'SEO avançado', desc: 'Schema.org, sitemap e canonical por link. Avisamos quando liberar.', comingSoon: true },
+      { icon: '📈', title: 'Relatório PDF', desc: 'Exporte um relatório mensal completo da sua performance. Avisamos quando liberar.', comingSoon: true },
+      { icon: '⚡', title: 'Suporte prioritário', desc: 'Canal dedicado com resposta em até 24h em dias úteis. Avisamos quando liberar.', comingSoon: true },
     ],
   },
 }

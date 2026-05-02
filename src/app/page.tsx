@@ -213,7 +213,7 @@ export default function LandingPage() {
             {[
               { feature: 'Preço mensal', smart: 'R$14,90/mês', link: 'R$80/mês' },
               { feature: 'Links', smart: 'Ilimitados', link: 'Ilimitados' },
-              { feature: 'PIX nativo', smart: '✓', link: '✕' },
+              { feature: 'PIX nativo (mini-loja)', smart: 'Em breve', link: '✕' },
               { feature: 'WhatsApp', smart: '✓', link: '✕' },
               { feature: 'Em português', smart: '✓', link: '✕' },
               { feature: 'Analytics', smart: '✓', link: '✓' },
@@ -222,7 +222,6 @@ export default function LandingPage() {
               { feature: 'Domínio custom', smart: 'Em breve', link: '✓' },
               { feature: 'Remover marca', smart: '✓', link: '✓' },
               { feature: 'Captura de emails', smart: '✓', link: '✓' },
-              { feature: 'Pagar com PIX/Boleto', smart: '✓', link: '✕' },
             ].map((row, i) => (
               <div key={i} className={`grid grid-cols-3 text-center text-sm ${i % 2 === 0 ? '' : 'bg-surface/50'}`}>
                 <div className="p-3.5 text-zinc-400 text-left pl-6">{row.feature}</div>
@@ -316,9 +315,22 @@ export default function LandingPage() {
                 <span className="text-zinc-500 mb-1">/mês</span>
               </div>
               <ul className="space-y-3 mb-8">
-                {['Tudo do Pro', 'Mini-loja com PIX (0%)', 'Até 10 páginas', 'SEO avançado', 'Relatório PDF', 'Suporte prioritário'].map((f, i) => (
+                {[
+                  { name: 'Tudo do Pro' },
+                  { name: 'Mini-loja com PIX (0%)', comingSoon: true },
+                  { name: 'Até 10 páginas', comingSoon: true },
+                  { name: 'SEO avançado', comingSoon: true },
+                  { name: 'Relatório PDF', comingSoon: true },
+                  { name: 'Suporte prioritário', comingSoon: true },
+                ].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <span className="text-brand-400">✓</span> {f}
+                    <span className={f.comingSoon ? 'text-zinc-500' : 'text-brand-400'}>✓</span>
+                    <span className={f.comingSoon ? 'text-zinc-400' : ''}>{f.name}</span>
+                    {f.comingSoon && (
+                      <span className="ml-auto text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded-md bg-yellow-500/15 text-yellow-300 border border-yellow-500/30">
+                        Em breve
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
