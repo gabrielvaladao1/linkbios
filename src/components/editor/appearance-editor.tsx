@@ -596,8 +596,8 @@ export default function AppearancePageClient({ user, links = [] }: AppearanceEdi
     </div>
 
     {/* Mobile Preview — Desktop: sticky sidebar */}
-    <div className="hidden lg:block">
-      <div className="sticky top-8">
+    <div className="hidden lg:block self-start sticky top-4" style={{ maxHeight: 'calc(100vh - 2rem)' }}>
+      <div>
         <MobilePreview
           name={user.name}
           bio={user.bio}
