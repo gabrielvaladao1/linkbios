@@ -4,6 +4,19 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
+  // Intercept auth codes arriving at root or other pages
+  // Supabase sends ?code=xxx to the Site URL — redirect to /auth/callback
+  const code = request.nextUrl.searchParams.get('code')
+  if (code && !request.nextUrl.pathname.startsWith('/auth/callback')) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/auth/callback'
+    // Preserve the 'next' param if present, default to /dashboard
+    if (!url.searchParams.has('next')) {
+      url.searchParams.set('next', '/dashboard')
+    }
+    return NextResponse.redirect(url)
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
