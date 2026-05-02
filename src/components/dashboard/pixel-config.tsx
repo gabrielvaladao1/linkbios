@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import Link from 'next/link'
 import { updatePixels } from '@/actions/profile'
 
 interface PixelConfigProps {
@@ -97,7 +98,11 @@ export default function PixelConfig({ metaPixelId, tiktokPixelId, plan }: PixelC
 
         {isFree && (
           <p className="text-xs text-zinc-500 text-center">
-            Faça upgrade para o <span className="text-brand-400">Plano Pro</span> para usar pixels de rastreamento.
+            Faça upgrade para o{' '}
+            <Link href="/dashboard/planos" className="text-brand-400 hover:text-brand-300 underline underline-offset-2 transition-colors">
+              Plano Pro
+            </Link>{' '}
+            para usar pixels de rastreamento.
           </p>
         )}
       </div>
