@@ -140,6 +140,17 @@ export async function POST(request: NextRequest) {
         }
         break
       }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object as unknown as Record<string, unknown>
+        const subId = invoice.subscription as string | null
+        if (!subId) break
+        await prisma.subscription.update({
+          where: { stripeSubscriptionId: subId },
+          data: { status: 'PAST_DUE' },
+        })
+        break
+      }
     }
   } catch (error) {
     console.error('Webhook handler error:', error)

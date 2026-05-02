@@ -29,14 +29,9 @@ export async function createCheckoutSession(planKey: 'PRO' | 'BUSINESS', interva
 
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
-    payment_method_types: ['card', 'boleto', 'pix'],
+    payment_method_types: ['card'],
     mode: 'subscription',
     line_items: [{ price: priceId, quantity: 1 }],
-    payment_method_options: {
-      pix: {
-        expires_after_seconds: 3600, // 1 hora para pagar
-      },
-    },
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgrade=success`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/planos`,
     metadata: { userId: user.id, plan: planKey, interval },
