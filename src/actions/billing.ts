@@ -11,37 +11,51 @@ export async function createCheckoutSession(planKey: 'PRO' | 'BUSINESS', interva
 
   const plan = PLANS[planKey]
   const priceId = plan.priceId[interval]
-  if (!priceId) return { error: 'Plano inválido ou preço não configurado' }
+  if (!priceId) return { error: `Plano ${planKey} ${interval} não configurado (price ID ausente nas envs)` }
 
-  // Get or create Stripe customer
-  let customerId = user.stripeId
-  if (!customerId) {
-    const customer = await stripe.customers.create({
-      email: user.email,
-      metadata: { userId: user.id, slug: user.slug },
-    })
-    customerId = customer.id
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { stripeId: customerId },
-    })
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return { error: 'STRIPE_SECRET_KEY não está configurada no servidor' }
+  }
+  if (!process.env.NEXT_PUBLIC_APP_URL) {
+    return { error: 'NEXT_PUBLIC_APP_URL não está configurada no servidor' }
   }
 
-  const session = await stripe.checkout.sessions.create({
-    customer: customerId,
-    payment_method_types: ['card'],
-    mode: 'subscription',
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgrade=success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/planos`,
-    metadata: { userId: user.id, plan: planKey, interval },
-  })
+  let sessionUrl: string | null = null
+  try {
+    let customerId = user.stripeId
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        metadata: { userId: user.id, slug: user.slug },
+      })
+      customerId = customer.id
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { stripeId: customerId },
+      })
+    }
 
-  if (session.url) {
-    redirect(session.url)
+    const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgrade=success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/planos`,
+      metadata: { userId: user.id, plan: planKey, interval },
+    })
+    sessionUrl = session.url
+  } catch (err) {
+    console.error('[billing.createCheckoutSession]', err)
+    const message = err instanceof Error ? err.message : 'Erro desconhecido'
+    return { error: `Stripe: ${message}` }
   }
 
-  return { error: 'Erro ao criar sessão de checkout' }
+  if (!sessionUrl) {
+    return { error: 'Stripe não retornou URL da sessão' }
+  }
+
+  redirect(sessionUrl)
 }
 
 export async function cancelSubscription() {

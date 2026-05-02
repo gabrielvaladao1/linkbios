@@ -24,10 +24,15 @@ export default function PlansPageClient({
 }: PlansPageClientProps) {
   const [interval, setInterval] = useState<BillingInterval>('monthly')
   const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | null>(null)
 
   function handleSubscribe(planKey: 'PRO' | 'BUSINESS') {
+    setError(null)
     startTransition(async () => {
-      await createCheckoutSession(planKey, interval)
+      const result = await createCheckoutSession(planKey, interval)
+      if (result?.error) {
+        setError(result.error)
+      }
     })
   }
 
@@ -40,6 +45,13 @@ export default function PlansPageClient({
           {cancelAtPeriodEnd && <span className="text-yellow-400 ml-2">(cancela no fim do período)</span>}
         </p>
       </div>
+
+      {error && (
+        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm">
+          <strong className="text-red-200">Erro ao iniciar checkout:</strong>
+          <div className="mt-1 break-words">{error}</div>
+        </div>
+      )}
 
       {/* Billing Toggle */}
       <div className="flex items-center justify-center gap-3">
