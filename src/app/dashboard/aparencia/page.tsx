@@ -1,8 +1,6 @@
 import { getCurrentUser } from '@/actions/auth'
 import { prisma } from '@/lib/prisma'
 import AppearancePageClient from '@/components/editor/appearance-editor'
-import SocialIconsEditor from '@/components/editor/social-icons-editor'
-import AvatarUpload from '@/components/editor/avatar-upload'
 
 export default async function AppearancePage() {
   const user = await getCurrentUser()
@@ -18,23 +16,13 @@ export default async function AppearancePage() {
   })
 
   return (
-    <div className="animate-fade-in space-y-8">
-      <div>
+    <div className="animate-fade-in">
+      <div className="mb-8">
         <h1 className="text-2xl font-bold">Aparência</h1>
         <p className="text-zinc-400 text-sm mt-1">Personalize sua página</p>
       </div>
 
-      {/* Avatar */}
-      <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
-        <h3 className="font-semibold mb-4">Foto de perfil</h3>
-        <AvatarUpload
-          currentUrl={user.avatarUrl}
-          userName={user.name}
-          slug={user.slug}
-        />
-      </div>
-
-      {/* Profile + Templates + Colors + Preview */}
+      {/* Everything inside one component so the grid + sticky preview spans the full page */}
       <AppearancePageClient
         user={{
           ...user,
@@ -49,9 +37,6 @@ export default async function AppearancePage() {
         }}
         links={links}
       />
-
-      {/* Social Icons */}
-      <SocialIconsEditor initialLinks={socialLinks} />
     </div>
   )
 }

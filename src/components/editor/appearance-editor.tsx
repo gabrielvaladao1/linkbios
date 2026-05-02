@@ -14,6 +14,8 @@ import {
   type HeaderLayout,
 } from '@/config/templates'
 import MobilePreview from './mobile-preview'
+import AvatarUpload from './avatar-upload'
+import SocialIconsEditor from './social-icons-editor'
 
 interface User {
   name: string | null
@@ -391,6 +393,16 @@ export default function AppearancePageClient({ user, links = [] }: AppearanceEdi
   <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-8 lg:items-start">
     <div className="space-y-8">
 
+      {/* Avatar */}
+      <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
+        <h3 className="font-semibold mb-4">Foto de perfil</h3>
+        <AvatarUpload
+          currentUrl={user.avatarUrl}
+          userName={user.name}
+          slug={user.slug}
+        />
+      </div>
+
       {/* Profile */}
       <div className="p-6 rounded-2xl border border-surface-border bg-surface-card">
         <h3 className="font-semibold mb-4">Perfil</h3>
@@ -582,6 +594,9 @@ export default function AppearancePageClient({ user, links = [] }: AppearanceEdi
           </div>
         )}
       </div>
+
+      {/* Social Icons */}
+      <SocialIconsEditor initialLinks={user.socialLinks || []} />
 
       {/* Save */}
       <button
