@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Outfit } from 'next/font/google'
+import { Suspense } from 'react'
+import QueryToast from '@/components/ui/query-toast'
 import './globals.css'
 
 const inter = Inter({
@@ -54,8 +56,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${outfit.variable}`}>
       <body className="font-sans antialiased bg-surface text-zinc-100">
+        <Suspense fallback={null}>
+          <QueryToast />
+        </Suspense>
         {children}
       </body>
     </html>
   )
 }
+
