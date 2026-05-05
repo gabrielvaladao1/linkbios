@@ -10,7 +10,7 @@ export default function LandingPage() {
             PáginaBio
           </Link>
           <div className="hidden sm:flex items-center gap-6 text-sm text-zinc-400">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
+            <a href="#features" className="hover:text-white transition-colors">Funcionalidades</a>
             <a href="#how-it-works" className="hover:text-white transition-colors">Como funciona</a>
             <a href="#pricing" className="hover:text-white transition-colors">Preços</a>
           </div>
@@ -159,7 +159,7 @@ export default function LandingPage() {
       <section id="features" className="py-24 px-4 border-t border-surface-border/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-brand-400 text-sm font-medium tracking-widest uppercase">Features</span>
+            <span className="text-brand-400 text-sm font-medium tracking-widest uppercase">Funcionalidades</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-2 mb-4">
               Tudo que o Linktree não tem
             </h2>
@@ -206,7 +206,7 @@ export default function LandingPage() {
 
           <div className="rounded-2xl border border-surface-border bg-surface-card overflow-hidden">
             <div className="grid grid-cols-3 text-center text-sm font-medium border-b border-surface-border">
-              <div className="p-4 text-zinc-500">Feature</div>
+              <div className="p-4 text-zinc-500">Recurso</div>
               <div className="p-4 text-brand-400 bg-brand-600/5">PáginaBio Pro</div>
               <div className="p-4 text-zinc-500">Linktree Pro</div>
             </div>
