@@ -6,7 +6,19 @@ import { prisma } from '@/lib/prisma'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser()
-  if (!user) redirect('/login')
+  if (!user) {
+    // If there's a Supabase session but no Prisma profile, sign out to break
+    // the redirect loop (middleware sees session → /dashboard, layout sees no
+    // profile → /login, repeat). signOut() clears the session cookie first.
+    const { createClient } = await import('@/lib/supabase/server')
+    const supabase = await createClient()
+    const { data: { user: authUser } } = await supabase.auth.getUser()
+    if (authUser) {
+      // Auth user exists but Prisma profile missing — clear session
+      await supabase.auth.signOut()
+    }
+    redirect('/login')
+  }
 
   // Calculate setup progress for sidebar badge
   const linkCount = await prisma.link.count({ where: { userId: user.id } })

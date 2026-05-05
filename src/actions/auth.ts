@@ -347,10 +347,12 @@ export async function deleteAccount(formData: FormData) {
 
 export async function getCurrentUser() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-  if (!user) return null
+  if (authError || !user) return null
 
+  // If Prisma throws (DB timeout, connection error), let it propagate so the
+  // error boundary catches it instead of silently returning null → redirect loop.
   const dbUser = await prisma.user.findUnique({
     where: { id: user.id },
     include: { subscription: true },

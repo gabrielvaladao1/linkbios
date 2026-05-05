@@ -1,6 +1,22 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Helper: create a redirect response that preserves Supabase auth cookies.
+ * Without this, token-refresh cookies set by getUser() are lost on redirect,
+ * causing the next request to see an expired/missing session → redirect loop.
+ */
+function redirectWithCookies(url: URL, status: 301 | 302 | 307 | 308, source: NextResponse): NextResponse {
+  const redirect = NextResponse.redirect(url, status)
+  source.cookies.getAll().forEach((cookie) => {
+    redirect.cookies.set(cookie.name, cookie.value, {
+      // Preserve attributes — NextResponse.cookies won't have the full
+      // options from set(), but the name+value is enough for auth cookies.
+    })
+  })
+  return redirect
+}
+
 export async function updateSession(request: NextRequest) {
   // Canonical domain redirect: www → naked domain
   // Prevents cookie mismatches and redirect loops between www and non-www
@@ -36,7 +52,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           )
           supabaseResponse = NextResponse.next({ request })
@@ -59,7 +75,8 @@ export async function updateSession(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
-    return NextResponse.redirect(url)
+    // Forward refreshed cookies so the browser persists the updated tokens
+    return redirectWithCookies(url, 302, supabaseResponse)
   }
 
   // Already logged in — redirect away from auth pages
@@ -70,7 +87,7 @@ export async function updateSession(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
+    return redirectWithCookies(url, 302, supabaseResponse)
   }
 
   return supabaseResponse
