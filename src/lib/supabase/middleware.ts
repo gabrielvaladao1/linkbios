@@ -2,6 +2,16 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
+  // Canonical domain redirect: www → naked domain
+  // Prevents cookie mismatches and redirect loops between www and non-www
+  const host = request.headers.get('host') || ''
+  if (host.startsWith('www.')) {
+    const url = request.nextUrl.clone()
+    url.host = host.replace(/^www\./, '')
+    url.port = '' // remove port for clean redirect
+    return NextResponse.redirect(url, 301)
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   // Intercept auth codes arriving at root or other pages
