@@ -311,6 +311,12 @@ export async function deleteAccount(formData: FormData) {
     return { error: 'Digite EXCLUIR para confirmar' }
   }
 
+  // Validate service role key is available
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('[deleteAccount] SUPABASE_SERVICE_ROLE_KEY não configurada')
+    return { error: 'Erro de configuração do servidor. Contate o suporte.' }
+  }
+
   const supabase = await createClient()
   const { data: { user: authUser } } = await supabase.auth.getUser()
   if (!authUser?.email) return { error: 'Não autenticado' }
@@ -324,36 +330,38 @@ export async function deleteAccount(formData: FormData) {
     return { error: 'Senha incorreta' }
   }
 
-  // Cancelar assinatura Stripe imediatamente (se houver) — não bloquear se falhar
-  const subscription = await prisma.subscription.findUnique({
-    where: { userId: authUser.id },
-    select: { stripeSubscriptionId: true, status: true },
-  })
-  if (subscription && subscription.status !== 'CANCELED') {
-    try {
-      await stripe.subscriptions.cancel(subscription.stripeSubscriptionId)
-    } catch {
-      // Stripe pode falhar (sub já cancelada, fora de sync). Prosseguir.
+  // Cancelar assinatura Stripe (se houver) — não bloquear se falhar
+  try {
+    const subscription = await prisma.subscription.findUnique({
+      where: { userId: authUser.id },
+      select: { stripeSubscriptionId: true, status: true },
+    })
+    if (subscription && subscription.status !== 'CANCELED') {
+      try {
+        await stripe.subscriptions.cancel(subscription.stripeSubscriptionId)
+      } catch (stripeErr) {
+        console.error('[deleteAccount] Stripe cancel error (prosseguindo):', stripeErr)
+      }
     }
+  } catch {
+    // Prisma query pode falhar se não houver subscription. Prosseguir.
   }
 
   // Deletar o auth user PRIMEIRO — se falhar, o profile Prisma continua
-  // intacto e o usuário pode tentar novamente. Se deletarmos o profile
-  // primeiro e o auth falhar, fica um "ghost user" no auth.users que
-  // causa redirect loop no login.
+  // intacto e o usuário pode tentar novamente.
   const admin = createAdminClient()
   const { error: deleteError } = await admin.auth.admin.deleteUser(authUser.id)
   if (deleteError) {
     console.error('[deleteAccount] Falha ao excluir auth user:', deleteError.message)
-    return { error: 'Falha ao excluir conta. Tente novamente.' }
+    return { error: `Falha ao excluir conta: ${deleteError.message}` }
   }
 
-  // Auth user deletado com sucesso — agora deletar o profile Prisma
+  // Auth user deletado — agora deletar o profile Prisma
   // (cascateia em links, page_views, link_clicks e subscription)
   try {
     await prisma.user.delete({ where: { id: authUser.id } })
-  } catch {
-    // Já pode não existir (idempotência). Prosseguir.
+  } catch (prismaErr) {
+    console.error('[deleteAccount] Prisma delete error (prosseguindo):', prismaErr)
   }
 
   await supabase.auth.signOut()
