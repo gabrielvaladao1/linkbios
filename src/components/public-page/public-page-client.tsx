@@ -257,11 +257,11 @@ export function PublicPageClient({ user, links }: PublicPageProps) {
         {!user.hideBranding && (
           <div className="text-center pt-4 animate-fade-in" style={{ animationDelay: '0.8s', opacity: 0 }}>
             <Link
-              href="/"
+              href="/?utm_source=branding&utm_medium=public_page&utm_campaign=viral"
               className="inline-flex items-center gap-1.5 text-xs opacity-50 hover:opacity-80 transition-opacity group"
               style={{ color: subtextColor }}
             >
-              <span className="group-hover:scale-110 transition-transform">ðŸ’œ</span>
+              <span className="group-hover:scale-110 transition-transform">💜</span>
               Feito com PáginaBio
             </Link>
           </div>
