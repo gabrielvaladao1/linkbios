@@ -150,13 +150,24 @@ export async function signIn(formData: FormData) {
   }
 
   const supabase = await createClient()
-  const { error } = await supabase.auth.signInWithPassword(parsed.data)
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data)
 
   if (error) {
     if (error.message.toLowerCase().includes('not confirmed')) {
       return { error: 'Confirme seu email antes de entrar. Verifique sua caixa de entrada.' }
     }
     return { error: 'Email ou senha incorretos' }
+  }
+
+  // Verify Prisma profile exists — ghost auth entries (deleted account with
+  // orphaned auth.users row) would otherwise cause a redirect loop.
+  if (data.user) {
+    const dbUser = await prisma.user.findUnique({ where: { id: data.user.id } })
+    if (!dbUser) {
+      // Auth user exists but profile was deleted — sign out and inform user
+      await supabase.auth.signOut()
+      return { error: 'Esta conta foi excluída. Crie uma nova conta para continuar.' }
+    }
   }
 
   redirect('/dashboard')
@@ -326,19 +337,23 @@ export async function deleteAccount(formData: FormData) {
     }
   }
 
-  // public.users NÃO tem FK para auth.users — o vínculo é via trigger no INSERT.
-  // Por isso deletamos primeiro o profile (que cascateia em links, page_views,
-  // link_clicks e subscription) e depois o registro em auth.users.
+  // Deletar o auth user PRIMEIRO — se falhar, o profile Prisma continua
+  // intacto e o usuário pode tentar novamente. Se deletarmos o profile
+  // primeiro e o auth falhar, fica um "ghost user" no auth.users que
+  // causa redirect loop no login.
+  const admin = createAdminClient()
+  const { error: deleteError } = await admin.auth.admin.deleteUser(authUser.id)
+  if (deleteError) {
+    console.error('[deleteAccount] Falha ao excluir auth user:', deleteError.message)
+    return { error: 'Falha ao excluir conta. Tente novamente.' }
+  }
+
+  // Auth user deletado com sucesso — agora deletar o profile Prisma
+  // (cascateia em links, page_views, link_clicks e subscription)
   try {
     await prisma.user.delete({ where: { id: authUser.id } })
   } catch {
     // Já pode não existir (idempotência). Prosseguir.
-  }
-
-  const admin = createAdminClient()
-  const { error: deleteError } = await admin.auth.admin.deleteUser(authUser.id)
-  if (deleteError) {
-    return { error: 'Falha ao excluir conta. Tente novamente.' }
   }
 
   await supabase.auth.signOut()
